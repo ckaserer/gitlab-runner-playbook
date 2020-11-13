@@ -1,6 +1,5 @@
 ---
 stages:
-  - prepare
   - deploy
 
 variables:
@@ -12,8 +11,10 @@ cache:
     - .pip/
     - .env/
 
-init:
-  stage: prepare
+k3s:
+  stage: deploy
+  only:
+    - master
   tags:
     - k3s
   script:
@@ -25,12 +26,5 @@ init:
     - python -V
     - pip -V
     - ansible --version
-
-deploy:
-  stage: deploy
-  tags:
-    - k3s
-  script:
-    - source .env/bin/activate
     - ansible-playbook playbook.yml -i hosts.ini
 ...

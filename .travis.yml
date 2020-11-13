@@ -32,7 +32,7 @@ env:
   global:
   - secure: H10+AwtghG91i2CNTlnmOSR0P5ZY/ddmVSeGexUwvGVRxSO2tlGQZMoTCjOPXMMFnmwbRWpJCyhoYicky/YE5FHd4XUE/EBdmuDg78BBeAz5tYblxXHsvhQbDA50KybEa/hwSakopRwbMTeGPg0ADCZfzitLFXQR6Z+tyNgBSpZ1TazO8qWm+FIaNOrmpOS4ui1WSefxEyODDyLWF82DHDysXdqJ/EbNZoWe2LFIBRWsPiW6hYEQMO3emdEUp4gSscYo+u2eDFHU5zZ6SgWQIriF9bjL37oI8LRCPKrxybvSTgvr6yWxzQcb6QHvtlSSjohJWDVFnO3XDWAxeJ3B7tZQ12bYRPmphyuCfMgxRWYk3y7h1FfRMSlpnGEJAwMlNv6dNj9/MzuaFTnCytcsRneDSM4yWznxketzWOv1DuM7wKJf6sn/zHpoTHvcFT6O/CvsffTAzZOwfGVONl3FBM+rmY2iFqzSJYX/bZ8RuIEeXA1CLpqR8E+O5dD9MaYMyLHjfRktLi8vpaEwgktaUtZVR5rF2SuwFhED+KFijAgrYBjOMEcTO5tZ04t1eO22L93tVtm2kVQHRHgxJdRp90/UWnAfaeAn5w5uoZKSRy02i3x3pFLt3BzOu4nybEgTQ0v65ChlKkTkKFEC8IUrJiIZCmImR03FupjKfaVZXXg=
 script:
-- ansible-playbook playbook.yml -i hosts.ini --extra-vars archictecture=${TRAVIS_CPU_ARCH}
+- ansible-playbook playbook.yml -i hosts.ini --extra-vars arch=${TRAVIS_CPU_ARCH}
 after_success:
 - python travis_after_all.py https://api.travis-ci.com
 - export $(cat .to_export_back)

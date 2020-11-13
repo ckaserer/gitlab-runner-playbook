@@ -1,0 +1,9 @@
+- hosts: gitlab_runner
+  become: true
+  tasks:
+    - name: Include ckaserer.gitlab_runner
+      include_role:
+        name: ckaserer.gitlab_runner
+      vars:
+        architecture: arm64
+        gitlab_runner_groups: sudo

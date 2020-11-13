@@ -26,5 +26,5 @@ k3s:
     - python -V
     - pip -V
     - ansible --version
-    - ansible-playbook playbook.yml -i hosts.ini --extra-vars architecture=arm64
+    - ansible-playbook playbook.yml -i hosts.ini --extra-vars arch=arm64
 ...

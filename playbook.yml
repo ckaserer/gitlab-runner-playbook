@@ -4,3 +4,5 @@
     - name: Include ckaserer.gitlab_runner
       include_role:
         name: ckaserer.gitlab_runner
+      vars:
+        architecture: "{{ architecture }}"

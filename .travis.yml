@@ -40,8 +40,11 @@ after_success:
     if [ "$BUILD_LEADER" = "YES" ]; then
       if [ "$BUILD_AGGREGATE_STATUS" = "others_succeeded" ]; then
         echo "All jobs succeeded! Merging to master..."
-        BRANCHES_TO_MERGE_REGEX='^develop' BRANCH_TO_MERGE_INTO=master GIT_REPO=${TRAVIS_REPO_SLUG}
-        GIT_SERVER=github.com /tmp/merge.sh
+        BRANCHES_TO_MERGE_REGEX='^develop' \
+        BRANCH_TO_MERGE_INTO=master \
+        GIT_REPO=${TRAVIS_REPO_SLUG} \
+        GIT_SERVER=github.com \
+        /tmp/merge.sh
       else
         echo "Some jobs failed"
       fi

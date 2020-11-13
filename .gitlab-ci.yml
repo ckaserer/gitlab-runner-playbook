@@ -25,8 +25,6 @@ init:
     - python -V
     - pip -V
     - ansible --version
-    - molecule --version
-    - docker --version
 
 deploy:
   stage: deploy

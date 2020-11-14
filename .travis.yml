@@ -24,7 +24,7 @@ notifications:
 install:
 - pip install -r requirements.txt
 - ansible-galaxy install -r requirements.yml -f
-- curl -Lo /tmp/travis_after_all.py https://raw.github.com/ckaserer/travis_after_all/master/travis_after_all.py
+# - curl -Lo /tmp/travis_after_all.py https://raw.github.com/ckaserer/travis_after_all/master/travis_after_all.py
 - curl -Lo /tmp/merge.sh https://raw.githubusercontent.com/ckaserer/git-merge-script/master/merge.sh
 - chmod a+x /tmp/merge.sh
 env:

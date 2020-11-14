@@ -26,4 +26,4 @@
       vars:
         dhcpcd_interface: "eth0"
         dhcpcd_ip_address: "10.0.0.2/24"
-        reboot: false
+        reboot: false 

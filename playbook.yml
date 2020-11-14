@@ -1,5 +1,11 @@
 - hosts: gitlab_runner
   become: true
+  pre_tasks:
+  
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
   tasks:
 
     - name: Set hostname to gitlab-runner

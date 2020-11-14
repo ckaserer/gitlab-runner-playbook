@@ -14,6 +14,12 @@
       tags:
         - notest
 
+    - name: Include ckaserer.gitlab_runner
+      include_role:
+        name: ckaserer.gitlab_runner
+      vars:
+        architecture: "{{ arch }}"
+    
     - name: Include ckaserer.dhcpcd
       include_role:
         name: ckaserer.dhcpcd
@@ -21,9 +27,3 @@
         dhcpcd_interface: "eth0"
         dhcpcd_ip_address: "10.0.0.2/24"
         reboot: false
-
-    - name: Include ckaserer.gitlab_runner
-      include_role:
-        name: ckaserer.gitlab_runner
-      vars:
-        architecture: "{{ arch }}"

@@ -35,29 +35,37 @@ script:
 - docker exec -it instance ansible-galaxy install -r /mnt/requirements.yml
 - docker exec -it instance ansible-playbook /mnt/playbook.yml -i /mnt/hosts.ini --extra-vars arch=${TRAVIS_CPU_ARCH} --skip-tags notest 
 after_success:
-- python /tmp/travis_after_all.py https://api.travis-ci.com
-- export $(cat .to_export_back)
-- |
-    if [ "$BUILD_LEADER" = "YES" ]; then
-      if [ "$BUILD_AGGREGATE_STATUS" = "others_succeeded" ]; then
-        echo "All jobs succeeded! Merging to master..."
-        BRANCHES_TO_MERGE_REGEX='^develop' \
+  - |
+      BRANCHES_TO_MERGE_REGEX='^develop' \
         BRANCH_TO_MERGE_INTO=master \
         GIT_REPO=${TRAVIS_REPO_SLUG} \
         GIT_SERVER=github.com \
         /tmp/merge.sh
-      else
-        echo "Some jobs failed"
-      fi
-    fi
-after_failure:
-- python /tmp/travis_after_all.py https://api.travis-ci.com
-- export $(cat .to_export_back)
-- |
-    if [ "$BUILD_LEADER" = "YES" ]; then
-      if [ "$BUILD_AGGREGATE_STATUS" = "others_failed" ]; then
-        echo "All jobs failed"
-      else
-        echo "Some jobs failed"
-      fi
-    fi
+
+# after_success:
+# - python /tmp/travis_after_all.py https://api.travis-ci.com
+# - export $(cat .to_export_back)
+# - |
+#     if [ "$BUILD_LEADER" = "YES" ]; then
+#       if [ "$BUILD_AGGREGATE_STATUS" = "others_succeeded" ]; then
+#         echo "All jobs succeeded! Merging to master..."
+#         BRANCHES_TO_MERGE_REGEX='^develop' \
+#         BRANCH_TO_MERGE_INTO=master \
+#         GIT_REPO=${TRAVIS_REPO_SLUG} \
+#         GIT_SERVER=github.com \
+#         /tmp/merge.sh
+#       else
+#         echo "Some jobs failed"
+#       fi
+#     fi
+# after_failure:
+# - python /tmp/travis_after_all.py https://api.travis-ci.com
+# - export $(cat .to_export_back)
+# - |
+#     if [ "$BUILD_LEADER" = "YES" ]; then
+#       if [ "$BUILD_AGGREGATE_STATUS" = "others_failed" ]; then
+#         echo "All jobs failed"
+#       else
+#         echo "Some jobs failed"
+#       fi
+#     fi

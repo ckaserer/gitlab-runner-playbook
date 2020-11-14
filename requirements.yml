@@ -1,5 +1,6 @@
 ---
 roles:
+  - name: ckaserer.dhcpcd
   - name: ckaserer.gitlab_runner
 
 collections: []

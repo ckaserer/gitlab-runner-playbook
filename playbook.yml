@@ -1,6 +1,19 @@
 - hosts: gitlab_runner
   become: true
   tasks:
+
+    - name: Set hostname to gitlab-runner
+      hostname:
+        name: gitlab-runner
+
+    - name: Include ckaserer.dhcpcd
+      include_role:
+        name: ckaserer.dhcpcd
+      vars:
+        dhcpcd_interface: "eth0"
+        dhcpcd_ip_address: "10.0.0.2/24"
+        reboot: false
+
     - name: Include ckaserer.gitlab_runner
       include_role:
         name: ckaserer.gitlab_runner

@@ -35,4 +35,4 @@ script:
 - docker exec -it instance ansible-galaxy install -r /mnt/requirements.yml
 - docker exec -it instance ansible-playbook /mnt/playbook.yml -i /mnt/hosts.ini --extra-vars arch=${TRAVIS_CPU_ARCH} --skip-tags notest 
 after_success:
-  - BRANCHES_TO_MERGE_REGEX='^develop' BRANCH_TO_MERGE_INTO=master merge.sh
+  - BRANCHES_TO_MERGE_REGEX='^develop' BRANCH_TO_MERGE_INTO=master ./merge.sh

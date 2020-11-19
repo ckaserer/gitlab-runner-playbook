@@ -25,8 +25,8 @@ install:
 - pip install -r requirements.txt
 - ansible-galaxy install -r requirements.yml -f
 # - curl -Lo /tmp/travis_after_all.py https://raw.github.com/ckaserer/travis_after_all/master/travis_after_all.py
-- curl -Lo /tmp/merge.sh https://raw.githubusercontent.com/ckaserer/git-merge-script/master/merge.sh
-- chmod a+x /tmp/merge.sh
+- curl -Lo merge.sh https://raw.githubusercontent.com/ckaserer/git-merge-script/master/merge.sh
+- chmod a+x merge.sh
 env:
   global:
   - secure: H10+AwtghG91i2CNTlnmOSR0P5ZY/ddmVSeGexUwvGVRxSO2tlGQZMoTCjOPXMMFnmwbRWpJCyhoYicky/YE5FHd4XUE/EBdmuDg78BBeAz5tYblxXHsvhQbDA50KybEa/hwSakopRwbMTeGPg0ADCZfzitLFXQR6Z+tyNgBSpZ1TazO8qWm+FIaNOrmpOS4ui1WSefxEyODDyLWF82DHDysXdqJ/EbNZoWe2LFIBRWsPiW6hYEQMO3emdEUp4gSscYo+u2eDFHU5zZ6SgWQIriF9bjL37oI8LRCPKrxybvSTgvr6yWxzQcb6QHvtlSSjohJWDVFnO3XDWAxeJ3B7tZQ12bYRPmphyuCfMgxRWYk3y7h1FfRMSlpnGEJAwMlNv6dNj9/MzuaFTnCytcsRneDSM4yWznxketzWOv1DuM7wKJf6sn/zHpoTHvcFT6O/CvsffTAzZOwfGVONl3FBM+rmY2iFqzSJYX/bZ8RuIEeXA1CLpqR8E+O5dD9MaYMyLHjfRktLi8vpaEwgktaUtZVR5rF2SuwFhED+KFijAgrYBjOMEcTO5tZ04t1eO22L93tVtm2kVQHRHgxJdRp90/UWnAfaeAn5w5uoZKSRy02i3x3pFLt3BzOu4nybEgTQ0v65ChlKkTkKFEC8IUrJiIZCmImR03FupjKfaVZXXg=
@@ -35,37 +35,4 @@ script:
 - docker exec -it instance ansible-galaxy install -r /mnt/requirements.yml
 - docker exec -it instance ansible-playbook /mnt/playbook.yml -i /mnt/hosts.ini --extra-vars arch=${TRAVIS_CPU_ARCH} --skip-tags notest 
 after_success:
-  - |
-      BRANCHES_TO_MERGE_REGEX='^develop' \
-        BRANCH_TO_MERGE_INTO=master \
-        GIT_REPO=${TRAVIS_REPO_SLUG} \
-        GIT_SERVER=github.com \
-        /tmp/merge.sh
-
-# after_success:
-# - python /tmp/travis_after_all.py https://api.travis-ci.com
-# - export $(cat .to_export_back)
-# - |
-#     if [ "$BUILD_LEADER" = "YES" ]; then
-#       if [ "$BUILD_AGGREGATE_STATUS" = "others_succeeded" ]; then
-#         echo "All jobs succeeded! Merging to master..."
-#         BRANCHES_TO_MERGE_REGEX='^develop' \
-#         BRANCH_TO_MERGE_INTO=master \
-#         GIT_REPO=${TRAVIS_REPO_SLUG} \
-#         GIT_SERVER=github.com \
-#         /tmp/merge.sh
-#       else
-#         echo "Some jobs failed"
-#       fi
-#     fi
-# after_failure:
-# - python /tmp/travis_after_all.py https://api.travis-ci.com
-# - export $(cat .to_export_back)
-# - |
-#     if [ "$BUILD_LEADER" = "YES" ]; then
-#       if [ "$BUILD_AGGREGATE_STATUS" = "others_failed" ]; then
-#         echo "All jobs failed"
-#       else
-#         echo "Some jobs failed"
-#       fi
-#     fi
+  - BRANCHES_TO_MERGE_REGEX='^develop' BRANCH_TO_MERGE_INTO=master merge.sh

@@ -3,6 +3,7 @@ os: linux
 arch:
 - amd64
 language: python
+cache: pip
 python:
 - '3.6'
 services:
